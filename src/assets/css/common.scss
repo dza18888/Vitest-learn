@@ -1,0 +1,33 @@
+:root {
+  --mainColor: 80, 110, 16;
+}
+
+@function getColor($opacity) {
+  $finalColor: rgba(var(--mainColor), $opacity);
+  @return $finalColor;
+}
+$mainLinear: linear-gradient(120deg, #86b91a 30%, #edd532);
+$text: #3c3c43;
+$vitestGreen: #86b91a;
+$vitestYellow: #edd532;
+$border: lightgray;
+
+// 居中
+@mixin middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-image: $mainLinear;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+}
