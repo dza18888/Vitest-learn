@@ -1,6 +1,7 @@
 <script>
 import { h } from "vue";
 import CodeBlock from "./CodeBlock.vue";
+import VscodeStep from './VscodeStep.vue'
 
 export default {
   props: ["document"],
@@ -14,6 +15,7 @@ export default {
       renderText,
       renderList,
       renderCodeBlock,
+      renderVscodeStep
     };
     function renderWrap(doc) {
       return h(
@@ -152,6 +154,10 @@ export default {
         language: item.language,
       });
     }
+    function renderVscodeStep(item) {
+      return h(VscodeStep, {
+      });
+    }
     function renderLink(link, text) {
       return h(
         "a",
@@ -174,6 +180,7 @@ export default {
   height: 100%;
   padding: 20px;
   overflow: auto;
+  overflow-x: hidden;
 
   .main-title {
     font-size: 20px;

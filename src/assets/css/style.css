@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('../font/icomoon.eot?btjalu');
-  src:  url('../font/icomoon.eot?btjalu#iefix') format('embedded-opentype'),
-    url('../font/icomoon.ttf?btjalu') format('truetype'),
-    url('../font/icomoon.woff?btjalu') format('woff'),
-    url('../font/icomoon.svg?btjalu#icomoon') format('svg');
+  src:  url('../font/icomoon.eot?t0p36k');
+  src:  url('../font/icomoon.eot?t0p36k#iefix') format('embedded-opentype'),
+    url('../font/icomoon.ttf?t0p36k') format('truetype'),
+    url('../font/icomoon.woff?t0p36k') format('woff'),
+    url('../font/icomoon.svg?t0p36k#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,14 +25,46 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-copy:before {
-  content: "\e902";
+.icon-vscode-logo:before {
+  content: "\e908";
+}
+.icon-chrome-close:before {
+  content: "\e90d";
+}
+.icon-chrome-maximize:before {
+  content: "\e90e";
+}
+.icon-chrome-minimize:before {
+  content: "\e90f";
+}
+.icon-debug-alt:before {
+  content: "\e903";
+  color: #868686;
+}
+.icon-extensions:before {
+  content: "\e904";
+  color: #868686;
+}
+.icon-files:before {
+  content: "\e905";
+  color: #868686;
+}
+.icon-search1:before {
+  content: "\e906";
+  color: #868686;
+}
+.icon-source-control:before {
+  content: "\e907";
+  color: #868686;
+}
+.icon-arrow_drop_down:before {
+  content: "\e900";
 }
 .icon-arrow_drop_up:before {
   content: "\e901";
 }
-.icon-arrow_drop_down:before {
-  content: "\e900";
+.icon-copy:before {
+  content: "\e902";
 }
 .icon-paint-format:before {
   content: "\e90c";

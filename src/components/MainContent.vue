@@ -71,6 +71,7 @@ function changeMenu() {
 .MainContent {
   display: flex;
   width: 100%;
+  max-width: 1920px;
   height: calc(100vh - 80px);
 }
 </style>

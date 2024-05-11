@@ -359,7 +359,7 @@ describe("test", () => {
       value: "inVscode",
       content: [
         {
-          type: "text",
+          type: "vscodeStep",
           content: "",
         },
       ],
