@@ -16,5 +16,6 @@ import { ref } from "vue";
 .documentation-content {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 </style>
