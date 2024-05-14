@@ -7,9 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Arrow: typeof import('./src/components/Arrow.vue')['default']
     CodeBlock: typeof import('./src/components/CodeBlock.vue')['default']
-    ElButton: typeof import('element-plus/es')['ElButton']
     ElStep: typeof import('element-plus/es')['ElStep']
     ElSteps: typeof import('element-plus/es')['ElSteps']
     ElTour: typeof import('element-plus/es')['ElTour']
@@ -17,10 +15,11 @@ declare module 'vue' {
     Header: typeof import('./src/components/Header.vue')['default']
     MainContent: typeof import('./src/components/MainContent.vue')['default']
     RenderDocumentation: typeof import('./src/components/RenderDocumentation.vue')['default']
+    RenderHtml: typeof import('./src/components/RenderHtml.vue')['default']
+    RenderImg: typeof import('./src/components/RenderImg.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
-    Step: typeof import('./src/components/Step.vue')['default']
     ViButton: typeof import('./src/components/ViButton.vue')['default']
     VscodeStep: typeof import('./src/components/VscodeStep.vue')['default']
     Wave: typeof import('./src/components/Wave.vue')['default']

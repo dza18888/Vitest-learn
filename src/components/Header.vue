@@ -37,7 +37,7 @@ const menuList = ref([
     value: "debug",
   },
   {
-    label: "基础语法",
+    label: "用例编写",
     value: "basicGrammar",
   },
   {

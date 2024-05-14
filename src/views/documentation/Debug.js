@@ -30,7 +30,7 @@ export default defineConfig({
         {
           type: "text",
           content:
-            '下列是可供选择的配置项，更多配置可参考官网：<a href="https://cn.vitest.dev/config/">Vitest配置选项</a>',
+            '下列是可供选择的配置项，更多配置可参考官网：<a target="_blank" href="https://cn.vitest.dev/config/">Vitest配置选项</a>',
         },
       ],
       children: [
@@ -262,7 +262,7 @@ describe("test", () => {
             {
               type: "text",
               content:
-                '配置要使用的测试覆盖率报告器。查看 <a href="https://istanbul.js.org/docs/advanced/alternative-reporters/">istanbul 文档</a> 来了解报告详情。',
+                '配置要使用的测试覆盖率报告器。查看 <a target="_blank"  href="https://istanbul.js.org/docs/advanced/alternative-reporters/">istanbul 文档</a> 来了解报告详情。',
             },
             {
               type: "list",
@@ -359,8 +359,41 @@ describe("test", () => {
       value: "inVscode",
       content: [
         {
-          type: "vscodeStep",
-          content: "",
+          type: 'text',
+          content: '在 VSCode 中调试测试的快速方法是通过 <code>JavaScript 调试终端</code>。 打开一个新的 JavaScript 调试终端 并直接运行 <code>npm run test</code> 或 <code>vitest</code>。'
+        },
+        {
+          type: 'img',
+          content: 'js-debug-terminal.png',
+          style: 'width: 70%'
+        },
+        {
+          type: 'text',
+          content: '你还可以添加专用启动配置以在 VSCode 中调试测试文件:'
+        },
+        {
+          type: 'codeBlock',
+          language: 'json',
+          content: `{
+  // 想了解更多的信息, 请访问：https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Current Test File",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "program": "\${workspaceRoot}/node_modules/vitest/vitest.mjs",
+      "args": ["run", "\${relativeFile}"],
+      "smartStep": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}`
+        },
+        {
+          type: "vscodeStep"
         },
       ],
     },

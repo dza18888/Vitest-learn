@@ -31,3 +31,20 @@ div {
     border-radius: 10px;
   }
 }
+
+.el-tour {
+  .el-tour__content {
+    width: fit-content;
+  }
+  .el-tour__header {
+    padding: 0;
+  }
+  .el-tour-buttons {
+    display: none;
+  }
+  .el-tour-indicator {
+    &.is-active {
+      background-color: getColor(1) !important;
+    }
+  }
+}

@@ -13,4 +13,8 @@ const document = ref(Debug);
 </script>
 
 <style lang="scss" scoped>
+.Debug {
+  width: 100%;
+  max-width: 1920px;
+}
 </style>

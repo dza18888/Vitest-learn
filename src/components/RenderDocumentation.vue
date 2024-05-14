@@ -1,7 +1,9 @@
 <script>
 import { h } from "vue";
 import CodeBlock from "./CodeBlock.vue";
-import VscodeStep from './VscodeStep.vue'
+import VscodeStep from "./VscodeStep.vue";
+import RenderHtml from "./RenderHtml.vue";
+import RenderImg from "./RenderImg.vue";
 
 export default {
   props: ["document"],
@@ -15,7 +17,8 @@ export default {
       renderText,
       renderList,
       renderCodeBlock,
-      renderVscodeStep
+      renderVscodeStep,
+      renderImg,
     };
     function renderWrap(doc) {
       return h(
@@ -82,49 +85,11 @@ export default {
     }
     function renderText(item) {
       let text = item.content;
-      let reg = /<code>.*?<\/code>|<a href=".*?">.*?<\/a>/g;
-      let basicTextList = text.split(reg);
-      let codeList = text.match(reg);
-      let textList = [];
 
-      for (let i = 0; i < basicTextList.length; i++) {
-        if (basicTextList[i]) {
-          textList.push(basicTextList[i]);
-        }
-        if (codeList && codeList.length) {
-          if (/<code>.*?<\/code>/.test(codeList[0])) {
-            textList.push(
-              renderInlineCode(codeList[0].replace(/<code>(.*?)<\/code>/, "$1"))
-            );
-          } else {
-            textList.push(
-              renderLink(
-                codeList[0].replace(/<a href="(.*?)">(.*?)<\/a>/, "$1"),
-                codeList[0].replace(/<a href="(.*?)">(.*?)<\/a>/, "$2")
-              )
-            );
-          }
-
-          codeList.splice(0, 1);
-        }
-      }
-      return h(
-        "p",
-        {
-          class: "basic-content",
-          style: item.style,
-        },
-        textList
-      );
-    }
-    function renderInlineCode(code) {
-      return h(
-        "span",
-        {
-          class: "inline-code",
-        },
-        code
-      );
+      return h(RenderHtml, {
+        style: item.style,
+        html: text,
+      });
     }
     function renderList(item) {
       const liList = [];
@@ -155,19 +120,13 @@ export default {
       });
     }
     function renderVscodeStep(item) {
-      return h(VscodeStep, {
-      });
+      return h(VscodeStep, {});
     }
-    function renderLink(link, text) {
-      return h(
-        "a",
-        {
-          href: link,
-          class: "link",
-          target: "_blank",
-        },
-        text
-      );
+    function renderImg(item) {
+      return h(RenderImg, {
+        url: item.content,
+        style: item.style
+      });
     }
     return () => renderWrap(doc);
   },
@@ -211,23 +170,6 @@ export default {
     font-weight: bold;
     line-height: 20px;
     padding: 10px 0;
-  }
-
-  .basic-content {
-    line-height: 24px;
-    font-size: 14px;
-
-    .inline-code {
-      background-color: getColor(0.1);
-      color: getColor(1);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", "Courier New", monospace;
-      padding: 2px 10px;
-    }
-
-    .link {
-      color: getColor(1);
-    }
   }
 
   .list {

@@ -1,9 +1,7 @@
 <template>
-  <el-steps :active="activeStep" simple>
-    <el-step title="Step 1" />
-    <el-step title="Step 2" />
-    <el-step title="Step 3" />
-  </el-steps>
+  <vi-button style="margin-bottom: 20px" @click="startGuide"
+    >开启引导</vi-button
+  >
   <div class="vscode-operation">
     <div class="top">
       <div class="menu-block-list">
@@ -28,13 +26,7 @@
         <div class="debugger-input">
           <input type="text" placeholder="Select debugger" />
         </div>
-        <div
-          class="debugger-item"
-          @click="
-            launchJsonShow = true;
-            selectDebuggerShow = false;
-          "
-        >
+        <div class="debugger-item" @click="chooseNodeJs" id="nodeJsSelector">
           Node.js
         </div>
       </div>
@@ -45,21 +37,32 @@
         <div class="icon-button icon-search1"></div>
         <div class="icon-button icon-source-control"></div>
         <div
-          class="icon-button icon-debug-alt shake-icon"
-          @click="debugShow = !debugShow"
+          class="icon-button icon-debug-alt"
+          @click="openDebugRun"
           title="Run and Debug"
-        >
-          <arrow placement="right"></arrow>
-        </div>
+          id="debugShowIcon"
+        ></div>
         <div class="icon-button icon-extensions"></div>
       </div>
       <div class="debug-run-area" v-show="debugShow">
-        <div class="run-debug-button">Run and Debug</div>
-        <div class="debug-note">
-          To customize Run and Debug
-          <span class="shake" @click.stop="selectDebuggerShow = true"
-            >create a launch.json file</span
-          >
+        <div class="launch-json-created" v-if="launchJsonShow">
+          <img
+            src="@/assets/img/debug-icon.png"
+            id="startDebug"
+            title="Start Debugging(F5)"
+            alt=""
+            @click="startDebugging"
+          />
+          Debug Current Test File
+        </div>
+        <div class="debug-init" v-else>
+          <div class="run-debug-button">Run and Debug</div>
+          <div class="debug-note">
+            To customize Run and Debug
+            <span id="createLaunch" @click.stop="openDebugSelector"
+              >create a launch.json file</span
+            >
+          </div>
         </div>
       </div>
       <div class="content">
@@ -83,15 +86,33 @@
       </div>
     </div>
   </div>
+  <el-tour
+    v-model="guideOpen"
+    :current="currentStep"
+    :close-on-press-escape="false"
+  >
+    <el-tour-step target="#debugShowIcon" placement="right">
+      <div style="width: 200px">点击Run & Debug菜单</div>
+    </el-tour-step>
+    <el-tour-step target="#createLaunch">
+      <div style="width: 200px">创建一个launch.json文件</div>
+    </el-tour-step>
+    <el-tour-step target="#nodeJsSelector"
+      ><div style="width: 150px">选择Node.js</div></el-tour-step
+    >
+    <el-tour-step target="#startDebug"
+      ><div style="width: 120px">开始调测</div></el-tour-step
+    >
+  </el-tour>
 </template>
 
 <script setup>
-import Arrow from "./Arrow.vue";
-import { ref, onMounted } from "vue";
-let activeStep = ref(0);
+import { ref, onMounted, nextTick } from "vue";
 let debugShow = ref(false);
 let selectDebuggerShow = ref(false);
 let launchJsonShow = ref(false);
+let guideOpen = ref(false);
+let currentStep = ref(0);
 
 import hljs from "highlight.js";
 
@@ -124,6 +145,39 @@ onMounted(() => {
     hljs.highlightElement(block);
   });
 });
+
+const startGuide = () => {
+  currentStep.value = 0;
+  guideOpen.value = true;
+  debugShow.value = false;
+  selectDebuggerShow.value = false;
+  launchJsonShow.value = false;
+};
+
+const openDebugRun = () => {
+  debugShow.value = !debugShow.value;
+  nextTick(() => {
+    currentStep.value = 1;
+  });
+};
+
+const openDebugSelector = () => {
+  selectDebuggerShow.value = true;
+  nextTick(() => {
+    currentStep.value = 2;
+  });
+};
+
+const chooseNodeJs = () => {
+  launchJsonShow.value = true;
+  selectDebuggerShow.value = false;
+  currentStep.value = 3;
+};
+
+const startDebugging = () => {
+  guideOpen.value = false;
+  currentStep.value = 0;
+};
 
 const vClickOutside = {
   mounted(el, binding) {
@@ -278,6 +332,20 @@ const vClickOutside = {
       height: 100%;
       background-color: #181818;
       border-right: 1px solid #2b2b2b;
+      .launch-json-created {
+        margin: 10px 15px;
+        font-size: 12px;
+        color: #cccccc;
+        display: flex;
+        align-items: center;
+        background-color: #313131;
+        img {
+          width: 20px;
+          height: 20px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+      }
       .run-debug-button {
         background-color: #0078d4;
         color: white;
@@ -347,7 +415,7 @@ const vClickOutside = {
           background-color: #1f1f1f;
           padding: 0;
           padding-left: 20px;
-          font-size: 15px;
+          font-size: 13px;
           line-height: 20px;
           font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
             "Liberation Mono", "Courier New", monospace;
@@ -356,26 +424,7 @@ const vClickOutside = {
     }
   }
 }
-.shake-icon {
-  &::before {
-    animation: tilt-shaking 0.6s infinite;
-  }
-}
-@keyframes tilt-shaking {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(10deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  75% {
-    transform: rotate(-10deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+.el-tour-buttons {
+  display: none;
 }
 </style>
