@@ -74,7 +74,7 @@ function changeMenu(menu) {
 
 <style lang="scss" scoped>
 .SideBar {
-  width: 200px;
+  width: 250px;
   flex-shrink: 0;
   padding: 0 20px;
 

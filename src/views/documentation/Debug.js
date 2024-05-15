@@ -329,7 +329,8 @@ describe("test", () => {
             },
             {
               type: "text",
-              content: "在当前目录中启动 Vitest。在开发环境会自动进入监听(<code>watch</code>)模式。",
+              content:
+                "在当前目录中启动 Vitest。在开发环境会自动进入监听(<code>watch</code>)模式。",
               style: "margin:10px 0",
             },
             {
@@ -347,7 +348,8 @@ describe("test", () => {
             },
             {
               type: "text",
-              content: "运行所有测试套件，监听变化并在变化时重新运行测试。与没有参数的情况下调用 <code>vitest</code> 一样。",
+              content:
+                "运行所有测试套件，监听变化并在变化时重新运行测试。与没有参数的情况下调用 <code>vitest</code> 一样。",
               style: "margin:10px 0",
             },
           ],
@@ -357,24 +359,57 @@ describe("test", () => {
     {
       title: "在Vscode中调试",
       value: "inVscode",
-      content: [
+      children: [
         {
-          type: 'text',
-          content: '在 VSCode 中调试测试的快速方法是通过 <code>JavaScript 调试终端</code>。 打开一个新的 JavaScript 调试终端 并直接运行 <code>npm run test</code> 或 <code>vitest</code>。'
+          title: "Vitest官方插件",
+          value: "vitestExtension",
+          content: [
+            {
+              type: "text",
+              content:
+                'Vitest官方Vscode扩展插件，支持快速执行单个用例，快速调测。插件地址：<a href="https://marketplace.visualstudio.com/items?itemName=vitest.explorer" target="_blank">Vitest扩展插件</a>',
+            },
+            {
+              type: "list",
+              content: [
+                "Visual Studio Code版本 >= <b>1.77.0</b> ( 2024/05/15 )",
+                "Vitest版本 >= <b>v1.4.0</b> ( 2024/05/15 )",
+              ],
+            },
+            {
+              type: "img",
+              content: "vitest-vscode-extension.png",
+              style: 'width: 60%'
+            },
+            {
+              type: "img",
+              content: "vscode-extension.gif",
+              style: 'width: 100%'
+            },
+          ],
         },
         {
-          type: 'img',
-          content: 'js-debug-terminal.png',
-          style: 'width: 70%'
-        },
-        {
-          type: 'text',
-          content: '你还可以添加专用启动配置以在 VSCode 中调试测试文件:'
-        },
-        {
-          type: 'codeBlock',
-          language: 'json',
-          content: `{
+          title: "Vscode终端调试",
+          value: "terminalDebug",
+          content: [
+            {
+              type: "text",
+              content:
+                "在 VSCode 中调试测试的快速方法是通过 <code>JavaScript 调试终端</code>。 打开一个新的 JavaScript 调试终端 并直接运行 <code>npm run test</code> 或 <code>vitest</code>。",
+            },
+            {
+              type: "img",
+              content: "js-debug-terminal.png",
+              style: "width: 70%",
+            },
+            {
+              type: "text",
+              content: "你还可以添加专用启动配置以在 VSCode 中调试测试文件:",
+            },
+            {
+              type: "codeBlock",
+              language: "json",
+              content: `{
   // 想了解更多的信息, 请访问：https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
@@ -390,10 +425,12 @@ describe("test", () => {
       "console": "integratedTerminal"
     }
   ]
-}`
-        },
-        {
-          type: "vscodeStep"
+}`,
+            },
+            {
+              type: "vscodeStep",
+            },
+          ],
         },
       ],
     },
