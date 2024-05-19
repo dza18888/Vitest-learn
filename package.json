@@ -8,6 +8,7 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test": "vitest",
+    "test:jest": "jest",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force"
   },
@@ -22,8 +23,9 @@
     "@types/jsdom": "^21.1.6",
     "@types/node": "^20.12.5",
     "@vitejs/plugin-vue": "^5.0.4",
-    "@vue/test-utils": "^2.4.5",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
+    "jest": "^29.7.0",
     "jsdom": "^24.0.0",
     "npm-run-all2": "^6.1.2",
     "sass": "^1.76.0",

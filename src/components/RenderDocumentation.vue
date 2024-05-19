@@ -4,6 +4,7 @@ import CodeBlock from "./CodeBlock.vue";
 import VscodeStep from "./VscodeStep.vue";
 import RenderHtml from "./RenderHtml.vue";
 import RenderImg from "./RenderImg.vue";
+import RenderTip from "./RenderTip.vue";
 
 export default {
   props: ["document"],
@@ -19,6 +20,7 @@ export default {
       renderCodeBlock,
       renderVscodeStep,
       renderImg,
+      renderTip,
     };
     function renderWrap(doc) {
       return h(
@@ -119,13 +121,19 @@ export default {
         language: item.language,
       });
     }
-    function renderVscodeStep(item) {
+    function renderVscodeStep() {
       return h(VscodeStep, {});
     }
     function renderImg(item) {
       return h(RenderImg, {
         url: item.content,
-        style: item.style
+        style: item.style,
+      });
+    }
+    function renderTip(item) {
+      return h(RenderTip, {
+        content: item.content,
+        style: item.style,
       });
     }
     return () => renderWrap(doc);

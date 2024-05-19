@@ -76,6 +76,7 @@ function changeMenu(menu) {
 .SideBar {
   width: 250px;
   flex-shrink: 0;
+  overflow-y: auto;
   padding: 0 20px;
 
   .menu-list {

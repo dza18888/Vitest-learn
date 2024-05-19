@@ -2,8 +2,12 @@
   <div class="Header">
     <div class="left-placement"></div>
     <div class="menu-list">
-      <div :class="['menu-item', activeMenu === menu.value ? 'active-menu' : '']" v-for="menu in menuList"
-        :key="menu.value" @click="changeMenu(menu.value)">
+      <div
+        :class="['menu-item', activeMenu === menu.value ? 'active-menu' : '']"
+        v-for="menu in menuList"
+        :key="menu.value"
+        @click="changeMenu(menu.value)"
+      >
         {{ menu.label }}
       </div>
     </div>
@@ -12,10 +16,17 @@
         <div class="icon-paint-format" @click="colorDialogShow = true"></div>
         <div class="color-list" v-if="colorDialogShow">
           <div class="icon-arrow_drop_up"></div>
-          <div class="color-item" v-for="color in colorList" :key="color" :title="color"
-            :style="{ 'background-color': `rgb(${color})` }" @click="changeColor(color)"></div>
+          <div
+            class="color-item"
+            v-for="color in colorList"
+            :key="color"
+            :title="color"
+            :style="{ 'background-color': `rgb(${color})` }"
+            @click="changeColor(color)"
+          ></div>
         </div>
       </div>
+      <search></search>
     </div>
   </div>
 </template>
@@ -23,7 +34,8 @@
 <script setup>
 import { ref, defineModel } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { store } from '@/store/store.js'
+import { store } from "@/store/store.js";
+import Search from "./Search.vue";
 const router = useRouter();
 const route = useRoute();
 
@@ -39,10 +51,6 @@ const menuList = ref([
   {
     label: "用例编写",
     value: "basicGrammar",
-  },
-  {
-    label: "vue-test-utils",
-    value: "vueTestUtils",
   },
   {
     label: "其他",
@@ -82,8 +90,7 @@ function closeColorDialog() {
 
 function changeColor(color) {
   document.documentElement.style.setProperty("--mainColor", color);
-  store.mainColor = color
-
+  store.mainColor = color;
 }
 
 const activeMenu = ref(route.name);
@@ -129,7 +136,8 @@ function changeMenu(menu) {
   }
 
   .right-buttons {
-    width: 200px;
+    width: 100px;
+    display: flex;
 
     .change-color {
       position: relative;
@@ -139,12 +147,15 @@ function changeMenu(menu) {
         color: $text;
         font-size: 14px;
         cursor: pointer;
+        &:hover {
+          color: getColor(0.8);
+        }
       }
 
       .icon-arrow_drop_up {
         position: absolute;
-        left: 0;
-        top: -14px;
+        right: 0;
+        top: -13px;
         font-size: 24px;
         color: $text;
       }
@@ -152,7 +163,7 @@ function changeMenu(menu) {
       .color-list {
         position: absolute;
         top: 24px;
-        left: -6px;
+        right: -6px;
         display: flex;
         align-items: center;
         background-color: $text;

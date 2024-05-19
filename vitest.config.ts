@@ -11,6 +11,11 @@ export default mergeConfig(
       root: fileURLToPath(new URL("./", import.meta.url)),
       globals: true,
       watch: true,
+      server: {
+        deps: {
+          inline: ['element-plus'],
+        },
+      },
     },
   })
 );
