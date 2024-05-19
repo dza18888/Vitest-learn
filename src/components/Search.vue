@@ -1,8 +1,8 @@
 <template>
   <div class="search">
-    <div class="icon-search"></div>
-    <div class="search-wrap">
-      <div class="search-mask"></div>
+    <div class="icon-search" @click="searchShow = true"></div>
+    <div class="search-wrap" v-if="searchShow">
+      <div class="search-mask" @click="searchShow = false"></div>
       <div class="search-box">
         <div class="search-input">
           <div class="icon-search"></div>
@@ -18,13 +18,14 @@
             class="search-item"
             v-for="(res, index) in searchResult"
             :key="index"
+            @click="goToSearch(res.layer)"
           >
             <div class="layer">
               <span
                 v-for="(layerItem, layerIndex) in res.layer"
                 :key="layerIndex"
               >
-                <span v-html="layerItem"></span>
+                <span v-html="highlightKeyword(keyword, layerItem)"></span>
                 <div
                   class="icon-arrow_drop_down"
                   v-if="layerIndex !== res.layer.length - 1"
@@ -34,7 +35,7 @@
             <div class="content" v-if="res.content" v-html="res.content"></div>
           </div>
         </div>
-        <div class="empty-data" v-else>
+        <div class="empty-data" v-if="!searchResult.length && keyword">
           无搜索结果
         </div>
       </div>
@@ -52,14 +53,14 @@ import VitestIntro from "@/views/documentation/VitestIntro.js";
 
 let keyword = ref("");
 let searchResult = ref([]);
+let searchShow = ref(false);
+const emit = defineEmits(["goToSearch"]);
+
 const searchKeyWord = (keyword, documentation, layer) => {
   if (documentation.title) {
     if (documentation.title.indexOf(keyword) !== -1) {
       searchResult.value.push({
-        layer: [
-          ...layer,
-          `<span class="highlight-text">${documentation.title}</span>`,
-        ],
+        layer: [...layer, documentation.title],
       });
     }
     if (documentation.content) {
@@ -96,15 +97,13 @@ const searchKeyWord = (keyword, documentation, layer) => {
       }
     }
   }
-
-  console.log(searchResult);
 };
 const debounceSearchKeyWord = debounce((keyword) => {
   searchResult.value = [];
   searchKeyWord(keyword, Debug, []);
   searchKeyWord(keyword, Grammar, []);
   searchKeyWord(keyword, VitestIntro, []);
-}, 1000);
+}, 500);
 
 const filterText = (text) => {
   return text
@@ -132,8 +131,20 @@ const sliceRelateStr = (keyword, text) => {
       str += `${text.slice(index, index + 50)}...`;
     }
   }
-  str = str.replace(keyword, `<span class="highlight-text">${keyword}</span>`);
+  str = highlightKeyword(keyword, str);
   return str;
+};
+
+const highlightKeyword = (keyword, text) => {
+  return text.replaceAll(
+    keyword,
+    `<span class="highlight-text">${keyword}</span>`
+  );
+};
+
+const goToSearch = (layer) => {
+  emit("goToSearch", layer);
+  searchShow.value = false;
 };
 </script>
 
@@ -163,7 +174,7 @@ const sliceRelateStr = (keyword, text) => {
     }
     .search-box {
       position: absolute;
-      top: 20vh;
+      top: 15vh;
       left: 50%;
       transform: translateX(-50%);
       background-color: white;
@@ -199,6 +210,10 @@ const sliceRelateStr = (keyword, text) => {
           margin-top: 10px;
           border-radius: 5px;
           background-color: getColor(0.05);
+          cursor: pointer;
+          &:hover {
+            opacity: 0.8;
+          }
           :deep(.highlight-text) {
             background-color: getColor(0.3);
           }

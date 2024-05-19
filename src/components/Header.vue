@@ -26,7 +26,7 @@
           ></div>
         </div>
       </div>
-      <search></search>
+      <search @goToSearch="goToSearch"></search>
     </div>
   </div>
 </template>
@@ -100,6 +100,15 @@ function changeMenu(menu) {
   router.push({
     name: menu,
   });
+}
+
+const goToSearch = (layer) => {
+  if(layer[0]) {
+    let menu = menuList.value.find(menu => menu.label === layer[0])
+    if(menu) {
+      changeMenu(menu.value)
+    }
+  }
 }
 </script>
 
