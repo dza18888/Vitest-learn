@@ -168,7 +168,7 @@ describe("vitestLearn", () => {
     });
   });
   describe("vi.spyOn", () => {
-    test("vi.fn should be called", () => {
+    test("spyOn func should be called", () => {
       let obj = {
         getInfo: () => "info",
       };

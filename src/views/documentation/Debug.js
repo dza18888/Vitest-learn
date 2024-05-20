@@ -132,6 +132,14 @@ describe("test", () => {
                 "默认值：<code>'node'</code>",
               ],
             },
+            {
+              type: 'codeBlock',
+              language: 'javascript',
+              content: `test('dom should be init successfully', () => {
+  const element = document.createElement('div')
+  expect(element).not.toBeNull()
+})`
+            }
           ],
         },
         {
@@ -379,12 +387,12 @@ describe("test", () => {
             {
               type: "img",
               content: "vitest-vscode-extension.png",
-              style: 'width: 60%'
+              style: 'width: 50%'
             },
             {
               type: "img",
               content: "vscode-extension.gif",
-              style: 'width: 100%'
+              style: 'width: 90vh'
             },
           ],
         },
@@ -400,7 +408,7 @@ describe("test", () => {
             {
               type: "img",
               content: "js-debug-terminal.png",
-              style: "width: 70%",
+              style: "width: 90vh",
             },
             {
               type: "text",

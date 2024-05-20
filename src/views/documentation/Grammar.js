@@ -474,7 +474,7 @@ describe("toHaveBeenCalledTimes", () => {
             {
               type: "tip",
               content:
-                "若需要获取原始module，则使用importOriginal，用async/await接收。",
+                '若需要获取原始module，则使用importOriginal，用async/await接收。<a href="https://segmentfault.com/q/1010000044201309" target="_blank">ESM 的“异步”到底异步在哪里？ 为什么import的模块都是同步执行，却说ESM是异步的？</a>',
             },
             {
               type: "codeBlock",
@@ -563,7 +563,7 @@ test("default module should be mocked", () => {
               type: "codeBlock",
               language: "javascript",
               content: `describe("vi.spyOn", () => {
-  test("vi.fn should be called", () => {
+  test("spyOn func should be called", () => {
     let obj = {
       getInfo: () => 'info'
     }
@@ -573,6 +573,16 @@ test("default module should be mocked", () => {
   });
 });`,
             },
+            {
+              type: 'codeBlock',
+              language: 'javascript',
+              content: `import * as functionObj from './test.js'
+test("spyOn func should be called", () => {
+  let func = vi.spyOn(functionObj, 'getInfo');
+  functionObj.getInfo()
+  expect(func).toHaveBeenCalled();
+});`
+            }
           ],
         },
         {
@@ -739,7 +749,7 @@ describe("OptionsApi", () => {
         {
           type: "list",
           content: [
-            "无法使用组件实例中的属性和方法，所有属性和方法都必须mock",
+            "无法直接使用组件实例中的属性、computed、watch等功能，所有属性和方法都必须mock",
             "测试组件内的方法涉及指向vue实例的this，都需要改变this指向",
             "无法进行模拟DOM交互",
             "组合式API无法使用该方法进行测试",
@@ -1237,7 +1247,7 @@ watch(
             },
             {
               type: "codeBlock",
-              language: "javascript",
+              language: "vue",
               content: `<template>
   <div class="test-component">
     <div class="desc-text">Vitest前端测试用例编写经验分享</div>
@@ -1660,7 +1670,7 @@ mock.onGet("/users").reply(200, {
             {
               type: "text",
               content:
-                "当你mock大量的数据、方法时，会极有可能导致用例为无效用例，这样的测试是没有价值的。比如组件测试当中直接mock vue实例，一旦脱离了实际场景，测试用例失效的可能性就变得很大了。这里也考验每一位开发者对于测试用例编写的掌控能力，能够清楚地判断出哪些用例是必须mock的。",
+                "当你mock大量的数据、方法时，会极有可能导致用例为无效用例，这样的测试是没有价值的。这里考验每一位开发者对于测试用例编写的掌控能力，能够清楚地判断出哪些用例是必须mock的。",
             },
             {
               type: "text",
